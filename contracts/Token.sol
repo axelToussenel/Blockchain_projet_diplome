@@ -1,8 +1,8 @@
 /************************************************************************************************************
  * Sujet : Token                                                                                            *
  *                                                                                                          *
- * Utilité : - Gère les informations des établissements d'enseignement, étudiant, diplôme et entreprise.    *
- *           - Vérifie les diplômes.                                                                        *
+ * Utilité : - Définit les attributs du jeton.                                                              *
+ *           - Permet la création, le transfert et la gestion de jetons.                                    *
  *                                                                                                          *
  ************************************************************************************************************/
 
