@@ -3,6 +3,11 @@
  *                                                                                                          *
  * Utilité : - Gère les informations des établissements d'enseignement, étudiant, diplôme et entreprise.    *
  *           - Vérifie les diplômes.                                                                        *
+ *           - Implémente :                                                                                 *
+ *              - Etablissement                                                                             *
+ *              - Etudiant                                                                                  *
+ *              - Diplome                                                                                   *
+ *              - Entreprise                                                                                *
  *                                                                                                          *
  ************************************************************************************************************/
 
@@ -13,6 +18,7 @@ pragma experimental ABIEncoderV2;
 import "./Token.sol";
 
 contract JeuneDiplome {
+    
     address private owner;
     address private token;
 
@@ -166,15 +172,15 @@ contract JeuneDiplome {
         Etudiants[etudiantid].Date_debut_stage = Date_debut_stage;
         Etudiants[etudiantid].Date_fin_stage = Date_fin_stage;
         Etudiants[etudiantid].Evaluation = Evaluation;
-        // entreprise qui evalue
-        // remuneration 15 token
-        // frais 10 token
+        /* l'entreprise evalue l'eleve
+            remuneration 15 token
+            frais de 10 token */
         require(
-            Token(token).allowance(owner, address(this)) >= 15, // check the amount authorized by owner> = nb token user buy
+            Token(token).allowance(owner, address(this)) >= 15, //verifie le montant autorisé par le proprietaire
             "token not allowed"
         );
         require(
-            Token(token).transferFrom(owner, msg.sender, 15), // token transfer
+            Token(token).transferFrom(owner, msg.sender, 15),
             "transfert fail"
         );
     }
@@ -182,13 +188,13 @@ contract JeuneDiplome {
     event verifierresult(bool, Diplome);
 
     function verifier(uint256 diplomeid) public returns (bool, Diplome memory) {
-        // frais 10 token
+        //frais de 10 token
         require(
-            Token(token).allowance(msg.sender, address(this)) >= 10, // check the amount authorized by owner> = nb token user buy
+            Token(token).allowance(msg.sender, address(this)) >= 10, //verifie le montant autorisé par le proprietaire
             "token not allowed"
         );
         require(
-            Token(token).transferFrom(msg.sender, owner, 10), // token transfer
+            Token(token).transferFrom(msg.sender, owner, 10),
             "transfert fail"
         );
         emit verifierresult(Diplomes[diplomeid].exist, Diplomes[diplomeid]);

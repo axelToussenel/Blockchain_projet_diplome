@@ -9,16 +9,16 @@ pragma solidity >=0.5.0 <0.5.17;
 import "./Token.sol";
 
 contract Banque {
+
     address private owner;
     address private token;
 
-    //set contrat : token et owner
     constructor(address tokenaddress) public {
         token = tokenaddress;
         owner = msg.sender;
     }
 
-    //100 tokens = 1 eth
+    //100 jetons = 1 eth
     function buy() public payable {
         require(msg.value == 1 ether, "invalid value -> 1eth = 100 token"); //verifie que la transaction soit de 1 eth
         address payable portefeuille = address(uint160(owner)); //converti l'adresse du proprietaire

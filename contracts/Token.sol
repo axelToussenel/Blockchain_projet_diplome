@@ -11,6 +11,7 @@ pragma solidity >=0.5.0 <0.5.17;
 import "./ERC20Basic.sol";
 
 contract Token is ERC20Basic {
+    
     string public symbol;
     string public name;
     uint8 public decimal;
@@ -28,7 +29,6 @@ contract Token is ERC20Basic {
 
     mapping(address => uint256) private __balanceOf;
     mapping(address => mapping(address => uint256)) __allowances;
-
     event Transfer(address _addr, address _to, uint256 _value);
     event Approval(address _owner, address _spender, uint256 _value);
 
@@ -51,11 +51,7 @@ contract Token is ERC20Basic {
         return true;
     }
 
-    function transferFrom(
-        address _from,
-        address _to,
-        uint256 _value
-    ) public returns (bool success) {
+    function transferFrom(address _from,address _to,uint256 _value) public returns (bool success) {
         require(_value <= __balanceOf[_from]);
         require(_value <= __allowances[_from][msg.sender]);
 
@@ -78,15 +74,11 @@ contract Token is ERC20Basic {
         return true;
     }
 
-    function allowance(address _owner, address _spender)
-        public
-        view
-        returns (uint256 remaining)
+    function allowance(address _owner, address _spender) public view returns (uint256 remaining)
     {
         return __allowances[_owner][_spender];
     }
 }
-
 
 library SafeMath {
     function sub(uint256 a, uint256 b) internal pure returns (uint256) {
